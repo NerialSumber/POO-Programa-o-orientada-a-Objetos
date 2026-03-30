@@ -1,0 +1,57 @@
+
+package fatec.poo.model;
+
+/**
+ *
+ * @author 0030482421023
+ */
+public class FuncionarioComissionado extends Funcionario {
+    private double salBase, taxaComissao, totalVendas;
+    
+    public FuncionarioComissionado(int r, String n, String dta, double tc) {
+        super(r, n, dta);
+        taxaComissao = tc;
+    }
+    
+    public void setSalBase(double sb) {
+        salBase = sb;
+    }
+    
+    public double getSalBase() {
+        return salBase;
+    }
+    
+    public double getTotalVendas() {
+        return totalVendas;
+    }
+    
+    public double getTaxaComissao() {
+        return taxaComissao;
+    }
+    
+    public void addVendas(double v) {
+        totalVendas = totalVendas + v;
+    }
+    
+    public double calcSalBruto() {
+        return (salBase + (taxaComissao/100) * totalVendas);
+    }
+    
+    public double calcGratificacao() {
+        if (totalVendas <= 5000) {
+            return 0;
+        }
+        else {
+            if (totalVendas <= 10000) {
+                return (calcSalBruto() * 0.03);
+            }
+            else {
+                return (calcSalBruto() * 0.05);
+            }
+        }
+    }
+    
+    public double calcSalLiquido() {
+        return (super.calcSalLiquido() + calcGratificacao());
+    }
+}
